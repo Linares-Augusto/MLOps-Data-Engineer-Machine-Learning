@@ -1,7 +1,7 @@
 # MLOps-Data-Engineer-Machine-Learning
 El objetivo del proyecto es realizar un sistema de recomendacion de videojuegos a usuarios.
 
-En este proyecto, llevaremos acabo un estudio basado en Machine Learning Operations (MLOps).Este estudio se divide en tres etapas principales : 
+En este proyecto se lleva acabo un estudio basado en Machine Learning Operations (MLOps).Este estudio se divide en tres etapas principales : 
 
 ---
 
