@@ -19,7 +19,7 @@ Los datos utilizados incluyen información sobre juegos en la plataforma Steam y
 
 ### Exploración, Transformación y Carga (ETL)
 
-A partir de los 3 dataset proporcionados (steam_games, user_reviews y user_items) referentes a la plataforma de Steam, en primera instancia se realizó el proceso de limpieza de los datos.
+A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_items`) referentes a la plataforma de Steam, en primera instancia se realizó el proceso de limpieza de los datos.
 
 #### `steam_games`
 
