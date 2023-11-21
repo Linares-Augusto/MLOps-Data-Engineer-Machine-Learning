@@ -3,6 +3,7 @@ El objetivo del proyecto es realizar un sistema de recomendacion de videojuegos 
 
 En este proyecto, llevaremos acabo un estudio basado en Machine Learning Operations (MLOps).Este estudio se divide en tres etapas principales : 
 
+---
 
 1. **Exploración y Transformación:** Se realizará un análisis exploratorio de los datos, incluyendo la exploración de distribuciones y detección de correlaciones y valores atípicos.
 
