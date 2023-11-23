@@ -22,7 +22,6 @@ Los datos utilizados incluyen información sobre juegos en la plataforma Steam y
 A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_items`) referentes a la plataforma de Steam, en primera instancia se realizó el proceso de limpieza de los datos.
 
 #### `steam_games`
-
 - Se eliminaron filas completamente nulas y se procede a analizar cada columna.  
 - Se da prioridad a ciertas columnas que se consideran relevantes para el desarrollo de la API, estas incluyen: `id, genres, price, release date y developer`.
 - En la columna "id" se realiza la eliminación de valores nulos , duplicados y Cambio del tipo de dato a INT.
@@ -35,11 +34,13 @@ A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_item
 - Se exporta los datos en un formato JSON comprimido en gzip.
 
 #### `user_reviews`
-
 - Se eliminan valores duplicados antes de comenzar la tranformacion .
 - Se realiza la transformacion de datos separando todas las reviews y se genera una fila por cada review dentro de la columna "reviews", donde cada elemento contiene múltiples reviews del mismo usuario. Estas 
    se concatenan para facilitar su procesamiento.
 - Se eliminaron filas con valores nulos,considerándolos como datos irrelevantes.
 - Se crea la columna `"sentiment_analysis"` utilizando la librería nltk, que incluye la herramienta Sentiment Vader, un modelo entrenado para puntuar un texto como positivo, neutro o negativo.
 - Por último se verifican las columnas procesadas y se elimina la columna "review" antes de exportar los datos en un formato JSON comprimido en gzip.
+
+#### `user_items`  
+
 
