@@ -62,27 +62,22 @@ A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_item
 ![](img/Analisis_Price.png)
 - Podemos observar que la mayoria de los juegos son gratis, y hay algunos outliers que decido mantenerlos.
 ### Analisis de generos
-#### Cantidad total de juegos por genero
 ![](img/Popularidad_generos_videojuego.png)
 
-#### Top 5 de generos mas jugados
 ![](img/Top_5_mas_jugados.png)
 
 ### Cantidad de juegos lanzados por año
 ![](img/Cantidad_juegos_por_anio.png)
 
 ### Analisis de recommend
-#### Cantidad de recomendaciones
+
 ![](img/cantidad_recomendaciones.png)
 
-#### Top 5 de juegos mas recomendados
 ![](img/top_5_mas_recomendado.png)
 
 ### Analisis de sentiment_analysis
 
-#### Cantidad total de sentiment_analysis
 ![](img/Cantidad_sentiment.png)
 
-#### Top 5 de juegos con mejor reviws segun segun sentiment_analysis
 ![](img/top_5_mayor_sentiment.png)
 
