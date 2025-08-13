@@ -28,7 +28,7 @@ Los datos utilizados incluyen información sobre juegos en la plataforma Steam y
 
 A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_items`) referentes a la plataforma de Steam, en primera instancia se realizó el proceso de limpieza de los datos.
 
-#### `steam_games`
+#### `steam_games` [(ETL_Steam_Games.ipynb)](https://github.com/Linares-Augusto/MLOps-Data-Engineer-Machine-Learning/blob/main/ETL-EDA/ETL_Steam_Games.ipynb)
 - Se eliminaron filas completamente nulas y se procede a analizar cada columna.  
 - Se da prioridad a ciertas columnas que se consideran relevantes para el desarrollo de la API, estas incluyen: `id, genres, price, release date y developer`.
 - En la columna **"id"** se realiza la eliminación de valores nulos , duplicados y Cambio del tipo de dato a INT.
@@ -40,15 +40,18 @@ A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_item
 - Por ultimo se verifica que no queden valores vacios en las columnas procesadas y se eliminan el resto de columnas no utilizadas.
 - Se exporta los datos en un formato JSON comprimido en gzip.
 
-#### `user_reviews`
+#### `user_reviews` [(ETL_user_reviews.ipynb)](https://github.com/Linares-Augusto/MLOps-Data-Engineer-Machine-Learning/blob/main/ETL-EDA/ETL_User_Reviews.ipynb)
 - Se eliminan valores duplicados antes de comenzar la tranformacion .
 - Se realiza la transformacion de datos separando todas las reviews y se genera una fila por cada review dentro de la columna "reviews", donde cada elemento contiene múltiples reviews del mismo usuario. Estas 
    se concatenan para facilitar su procesamiento.
 - Se eliminaron filas con valores nulos,considerándolos como datos irrelevantes.
 - Se crea la columna `"sentiment_analysis"` utilizando la librería nltk, que incluye la herramienta Sentiment Vader, un modelo entrenado para puntuar un texto como positivo, neutro o negativo.
+- El análisis produce un diccionario de la forma {'neg': valor, 'neu': valor, 'pos': valor, 'compound': valor}. El valor "compound" representa la puntuación total de la oración compuesta, con un rango entre -1 y 1.
+- Se utiliza la puntuación "compound" para categorizar la review como negativa (si x < -0.5), neutra (-0.5 >= x <= 0.5) o positiva (si x > 0.5). Luego se redondea a un valor entero (-1, 0, 1).
+- Además, se suma 1 a ese valor para obtener la referencia pedida en el ejercicio (malo 0, neutro 1, positivo 2).
 - Por último se verifican las columnas procesadas y se elimina la columna "review" antes de exportar los datos en un formato JSON comprimido en gzip.
 
-#### `user_items`  
+#### `user_items` [(ETL_user_items.ipynb)](https://github.com/Linares-Augusto/MLOps-Data-Engineer-Machine-Learning/blob/main/ETL-EDA/ETL_users_items_ETL.ipynb) 
 - En este cuaderno Jupyter, se lleva a cabo el procesamiento de datos para el conjunto de datos de los items que posee cada usuario.
 - Este proceso de ETL es el más breve, ya que se centra en eliminar columnas innecesarias para el desarrollo de la API. Los datos procesados se exportan en un archivo CSV comprimido en formato gzip.
 
