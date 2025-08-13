@@ -22,9 +22,7 @@ Los datos utilizados incluyen información sobre juegos en la plataforma Steam y
 5. [Video](#video)
 6. [Contacto](#contacto)
 ---
-# Desarrollo
-
-### <a name="etl">Exploración, Transformación y Carga (ETL)</a>
+## <a name="etl">Exploración, Transformación y Carga (ETL)</a>
 
 A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_items`) referentes a la plataforma de Steam, en primera instancia se realizó el proceso de limpieza de los datos.
 
@@ -55,5 +53,36 @@ A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_item
 - En este cuaderno Jupyter, se lleva a cabo el procesamiento de datos para el conjunto de datos de los items que posee cada usuario.
 - Este proceso de ETL es el más breve, ya que se centra en eliminar columnas innecesarias para el desarrollo de la API. Los datos procesados se exportan en un archivo CSV comprimido en formato gzip.
 
+## <a name="eda">Análisis exploratorio de los datos [(EDA_Datasets.ipynb)](https://github.com/Linares-Augusto/MLOps-Data-Engineer-Machine-Learning/blob/main/ETL-EDA/EDA_Datasets.ipynb)</a>
 
+### Top 5 juego con mas horas jugadas (playtime_forever)
+![](img/Top_5_mas_jugados.png)
+- Podemos observar los 5 juegos con mas horas jugadas por todos los usuarios.
+### Analisis de price
+![](img/Analisis_Price.png)
+- Podemos observar que la mayoria de los juegos son gratis, y hay algunos outliers que decido mantenerlos.
+### Analisis de generos
+#### Cantidad total de juegos por genero
+![](img/Popularidad_generos_videojuego.png)
+
+#### Top 5 de generos mas jugados
+![](img/Top_5_mas_jugados.png)
+
+### Cantidad de juegos lanzados por año
+![](img/Cantidad_juegos_por_anio.png)
+
+### Analisis de recommend
+#### Cantidad de recomendaciones
+![](img/cantidad_recomendaciones.png)
+
+#### Top 5 de juegos mas recomendados
+![](img/top_5_mas_recomendado.png)
+
+### Analisis de sentiment_analysis
+
+#### Cantidad total de sentiment_analysis
+![](img/Cantidad_sentiment.png)
+
+#### Top 5 de juegos con mejor reviws segun segun sentiment_analysis
+![](img/top_5_mayor_sentiment.png)
 
