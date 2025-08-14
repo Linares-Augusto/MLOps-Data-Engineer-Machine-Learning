@@ -16,11 +16,10 @@ Los datos utilizados incluyen información sobre juegos en la plataforma Steam y
 ---
 ## Índice
 1. [ETL](#etl)
-2. [Desarrollo API](#api)
-3. [Análisis exploratorio de los datos](#eda)
-4. [Modelo de Aprendizaje Automático](#ml)
-5. [Video](#video)
-6. [Contacto](#contacto)
+2. [Análisis exploratorio de los datos](#eda)
+3. [Modelo de Aprendizaje Automático](#ml)
+4. [Desarrollo API](#api)
+5. [Contacto](#contacto)
 ---
 ## <a name="etl">Exploración, Transformación y Carga (ETL)</a>
 
@@ -80,7 +79,7 @@ A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_item
 ![](img/Cantidad_sentiment.png)
 
 ![](img/top_5_mayor_sentiment.png)
-## <a name="ml">Modelo de Aprendizaje Automático [(ML_Opcion_2.ipynb)]()</a>
+## <a name="ml">Modelo de Aprendizaje Automático [(Model.ipynb)](https://github.com/Linares-Augusto/MLOps-Data-Engineer-Machine-Learning/blob/main/ML/Model.ipynb)</a>
 
 En el notbook, se presenta la creación de un modelo de aprendizaje automático utilizando el conjunto de datos previamente explorado en el Análisis Exploratorio de Datos (EDA).
 
@@ -114,3 +113,90 @@ El proceso de recomendación se realiza de la siguiente manera:
   'Dust: An Elysian Tail'
 ]
 }`
+## <a name="api">Desarrollo API</a>
+
+### Función "developer"
+La función <b>`developer`</b> recibe como parámetro una desarrolladora (str) y devuelve la cantidad de items y el porcentaje de items gratuitos por año del desarrollador solicitado.
+
+En esta función se verifica si existe la desarrolladora solicitada en el conjunto de datos. En caso de que no se encuentre en el dataset, se retorna {'Error':'No existe el desarrollador'}. Una vez verificado que la desarrolladora existe, se crea una lista de los años en los que hubo lanzamiento de items por parte de la empresa desarrolladora. Luego, se agrupa el DataFrame por año y se realiza un recuento del total de items lanzados y cuántos de esos son gratuitos. 
+
+El resultado se presenta en un formato similar a este:
+`[
+  {
+    "Año": 2017,
+    "Cantidad de Items": 1,
+    "Contenido Free": "100.0%"
+  }
+]`
+### Función "userdata"
+
+La función <b>`userdata`</b> recibe como parámetro un usuario (str) y devuelve la cantidad de dinero gastado por el usuario, el porcentaje de recomendación y la cantidad de items que posee.
+
+En la función se verifica si existe el usuario en el conjunto de datos. En caso de que no exista, se retorna `{'Error':'No existe el usuario'}`. Una vez verificado que el usuario existe, se filtran los conjuntos de datos por el usuario y se obtiene la cantidad de items y las recomendaciones contando sus reviews. Para calcular el gasto total, se revisan todos los items que posee el usuario y se suma el precio de cada uno. 
+
+El resultado se presenta en un formato similar a este:
+`{
+  "Usuario": "Sp3ctre",
+  "Dinero gastado": "248421.96 USD",
+  "% de recomendación": "62.5%",
+  "Cantidad de items": "571"
+}`
+### Función "UserForGenre"
+La función <b>`UserForGenre`</b> recibe como parámetro un género y devuelve el usuario con más horas jugadas y la acumulación de horas jugadas por año de lanzamiento.
+
+Para lograr esto, se desarrolló un dataset específico para esta función, ya que el procesamiento necesario para proporcionar una respuesta en tiempo real no era viable por Render. El proceso de formación de este dataset se encuentra detallado en el cuaderno Jupyter [ETL - EDA\ETL_UserForGenre.ipynb](https://github.com/Linares-Augusto/MLOps-Data-Engineer-Machine-Learning/blob/main/ETL-EDA/ETL_UserForGenre.ipynb).
+
+En esta función, se verifica si existe el género proporcionado en el conjunto de datos. En caso de que no exista, se retorna `{'Mensaje':'No se encuentran horas registradas para este género'}`. Si el género existe, la función devuelve la información previamente mencionada, que ya se encuentra cargada en el dataset específico. 
+
+Ejemplo de retorno: `{
+  "Usuario con más horas jugadas para Género Indie": "REBAS_AS_F-T",
+  "Horas jugadas": {
+    "Año 1999": "Horas: 0.0",
+    "Año 2001": "Horas: 11.0",
+    "Año 2003": "Horas: 1863.0",
+    "Año 2005": "Horas: 0.0",
+    "Año 2006": "Horas: 1673.0",
+    "Año 2007": "Horas: 1070.0",
+    "Año 2008": "Horas: 1366.0",
+    "Año 2009": "Horas: 28993.0",
+    "Año 2010": "Horas: 21487.0",
+    "Año 2011": "Horas: 100155.0",
+    "Año 2012": "Horas: 148459.0",
+    "Año 2013": "Horas: 169349.0",
+    "Año 2014": "Horas: 326927.0",
+    "Año 2015": "Horas: 751765.0",
+    "Año 2016": "Horas: 815989.0",
+    "Año 2017": "Horas: 33887.0"
+  }
+}`
+
+### Función "best_developer_year"
+La función <b>`best_developer_year`</b> recibe como parámetro un año (int) y devuelve el top 3 de desarrolladores más recomendados por los usuarios.
+
+En esta función, se verifica si se encuentra el año proporcionado en el conjunto de datos. En caso de que no existan lanzamientos en ese año, se retorna `{'Error':'No hay ningún lanzamiento ese año'}`. Una vez verificado que se encuentra el año, se reúnen las valoraciones de sentimiento (sentiment_analysis) y se calcula el top 3 de desarrolladores más recomendados por los usuarios.
+
+Si no hay ninguna revisión para ese año, la función retorna `{'Error':'No hay ninguna revisión para ese año'}`. En caso contrario, se presenta el top 3 de desarrolladores más recomendados en un formato similar al siguiente: `{"Puesto 1": "Edge Of Reality",
+  "Puesto 2": "Coffee Stain Studios",
+  "Puesto 3": "New World Interactive"}`
+
+### Función "developer_reviews_analysis"
+
+La función <b>`developer_reviews_analysis`</b> recibe como parámetro el nombre de una desarrolladora (str) y devuelve el total de revisiones positivas y negativas que tiene. Para lograr esto, primero verifica si la desarrolladora existe en el conjunto de datos. Si no se encuentra, la función devuelve `{'Error':'No existe el desarrollador'}`. En caso de que la desarrolladora exista, filtra el conjunto de datos por el nombre de la desarrolladora solicitada y suma las revisiones con `sentiment_analysis = 2` (positivas) y `sentiment_analysis = 0` (negativas).
+
+Ejemplo de retorno: 
+`{
+  "Valve": [
+    "Negative = 558",
+    "Positive = 4446"
+  ]
+}`
+### Funcion "recomendacion_usuario"
+Esta funcion se va a explicar mas adelante con el [modelo de aprendizaje automatico](#ml).
+
+Si tienes alguna pregunta, sugerencia o simplemente quieres ponerte en contacto conmigo, estaré encantado de hablar contigo. Puedes alcanzarme de las siguientes maneras:
+
+- Correo Electrónico: [linaresaugusto2789@gmail.com](mailto:linaresaugusto2789@gmail.com)
+- LinkedIn: [Augusto Linares Hurtado](https://www.linkedin.com/in/augusto-linares-982283299/)
+
+
+¡Gracias por visitar mi proyecto!
