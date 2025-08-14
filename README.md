@@ -80,4 +80,37 @@ A partir de los 3 dataset proporcionados (`steam_games, user_reviews y user_item
 ![](img/Cantidad_sentiment.png)
 
 ![](img/top_5_mayor_sentiment.png)
+## <a name="ml">Modelo de Aprendizaje Automático [(ML_Opcion_2.ipynb)]()</a>
 
+En el notbook, se presenta la creación de un modelo de aprendizaje automático utilizando el conjunto de datos previamente explorado en el Análisis Exploratorio de Datos (EDA).
+
+Para este modelo, se ha elegido utilizar el algoritmo SVD (Singular Value Decomposition) de la biblioteca Surprise. El objetivo es predecir las calificaciones de los usuarios para los elementos del conjunto de datos para hacer un sistema de recomendacion usuario-item.
+
+El proceso consta de los siguientes pasos:
+
+1. **Creación de las Calificaciones:** Para entrenar el modelo, se genera una `calificación` a partir de la suma de las columnas `recommend` (0 o 1) y `sentiment_analysis` (0, 1, 2). Estas calificaciones se escalan en una clasificación que varía de 0 a 3.
+2. **Selección de Características:** Se seleccionan las características relevantes para el modelo, incluyendo `user_id`, `item_name` y la `calificación` creada en el paso anterior.
+3. **Entrenamiento del Modelo:** El conjunto de datos se divide en un 70% para entrenamiento y un 30% para pruebas. Luego, se crea el modelo SVD, se entrena con los datos de entrenamiento y se evalúa su rendimiento utilizando la métrica RMSE (Error Cuadrático Medio de la Raíz). El valor obtenido indica la precisión del modelo, obteniendo un valor aceptable para su utilizacion.
+4. **Optimización de Hiperparámetros:** Se ajustan los hiperparámetros del modelo para mejorar su rendimiento. Esto se aplica en la creación del modelo, y el proceso de entrenamiento se repite con los nuevos hiperparámetros.
+Finalmente, el modelo entrenado se guarda en formato Pickle para poder ser utilizado en la API.
+
+### Función "recomendacion_usuario"
+
+La función **`"recomendacion_usuario"`** recibe como parámetro el nombre de un usuario (str) y devuelve una lista de los 5 juegos recomendados para ese usuario.
+
+El proceso de recomendación se realiza de la siguiente manera:
+
+1. Se verifica si el usuario existe en el conjunto de datos. Si no se encuentra, la función retorna `{'Error': 'El usuario no existe'}`.
+2. Si el usuario existe, se filtran los juegos que ya posee el usuario y se eliminan de la lista de juegos disponibles para que no se le recomienden juegos que ya tiene.
+3. A continuación, importamos el modelo de recomendación previamente entrenado, que se encuentra en formato pickle.
+4. Se genera una clasificación para el usuario con respecto a todos los juegos disponibles en el conjunto de datos. El modelo utiliza esta clasificación para predecir qué juegos podrían gustarle al usuario.
+5. Finalmente, la función selecciona y retorna los 5 juegos con la mayor probabilidad de que le gusten al usuario, basándose en las predicciones del modelo.
+   Ejemplo de retorno: `{
+   'Juegos recomendados para maplemage': [
+   "King Arthur's Gold",
+  'Everlasting Summer',
+  'Call of Juarez Gunslinger',
+  'The Wolf Among Us',
+  'Dust: An Elysian Tail'
+]
+}`
