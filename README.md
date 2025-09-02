@@ -114,7 +114,7 @@ El proceso de recomendación se realiza de la siguiente manera:
 ]
 }`
 ## <a name="api">Desarrollo API</a>
-
+API deplegada en Render. Link: [https://mlops-data-engineer-machine-learning.onrender.com/docs]
 ### Función "developer"
 La función <b>`developer`</b> recibe como parámetro una desarrolladora (str) y devuelve la cantidad de items y el porcentaje de items gratuitos por año del desarrollador solicitado.
 
